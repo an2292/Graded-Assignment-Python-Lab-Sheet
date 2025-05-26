@@ -1,41 +1,73 @@
 import sqlite3
-import os
+from pathlib import Path
+from contextlib import contextmanager
 
 
-def run_sql(cursor, filepath):
-    """Run SQL statements from a file."""
-    if not os.path.exists(filepath):
-        raise FileNotFoundError(f"SQL file {filepath} does not exist.")
+class Database:
+    """Database manager class for handling SQLite database operations."""
 
-    with open(filepath, "r") as file:
-        sql_script = file.read()
+    def __init__(self, db_name="app"):
+        self.db_name = db_name
+        self.db_path = f"{db_name}.db"
 
-    # Run all SQL statements in the file
-    cursor.executescript(sql_script)
+    @contextmanager
+    def get_db_connection(self):
+        """
+        Helper class for managing database connections and ensuring they are closed properly.
+
+        Details of handling external resource usage effectively to ensure resources are relased are
+        detaled in the below article which also demonstrates the use of context managers:
+        https://realpython.com/python-with-statement/
+        """
+
+        conn = sqlite3.connect(self.db_path)
+        try:
+            yield conn
+        finally:
+            conn.close()
+
+    def run_sql(self, filepath):
+        """Run SQL statements from a file."""
+
+        sql_file = Path(filepath)
+        if not sql_file.exists():
+            raise FileNotFoundError(f"SQL file {filepath} does not exist.")
+
+        with self.get_db_connection() as conn:
+            cursor = conn.cursor()
+            sql_script = sql_file.read_text(encoding="utf-8")
+            cursor.executescript(sql_script)
+            conn.commit()
+
+    def create_databases(
+        self,
+        create_table_script="./create-table.sql",
+        populate_table_script="./populate-table.sql",
+    ):
+        """Create databases for the application and seed them with test data."""
+
+        try:
+            # Create tables
+            self.run_sql(create_table_script)
+            print("Tables created.")
+
+            self.run_sql(populate_table_script)
+            print("Tables populated with test data.")
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            raise
 
 
-def create_databases():
-    """Create databases for the application and seed them with test data."""
-    conn = sqlite3.connect("app.db")
-    cursor = conn.cursor()
+class Client:
+    def __init__(self):
+        self.name = ""
 
-    try:
-        # Create tables
-        run_sql(cursor, "./create-table.sql")
-        print("Tables created.")
 
-        run_sql(cursor, "./populate-table.sql")
-        print("Tables populated with test data.")
-
-        conn.commit()
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        conn.rollback()
-
-    finally:
-        conn.close()
+def cli():
+    flight_db = Database("flight")
+    flight_db.create_databases()
 
 
 if __name__ == "__main__":
-    create_databases()
+    cli()
