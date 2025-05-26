@@ -47,7 +47,7 @@ def cli(db_name="flight"):
                         "View Flights by Destination",
                         "View Flights by Duration",
                         "View Flights by Price Range",
-                        "View Flights by Depature Date",
+                        "View Flights by Departure Date",
                         "View Flights by Passenger Count",
                         "View Flights by Pilot Count",
                         "Back to Main Menu",

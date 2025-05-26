@@ -42,13 +42,13 @@ class Client:
         print("View Flights by Price Range")
         self.db.run_sql(f"{self.sql_flights_dir}/view_flights_by_price_range.sql", (min_price, max_price))
 
-    def view_flights_by_date(self, date):
-        print("View Flights by Date")
-        self.db.run_sql(f"{self.sql_bookings_dir}/view_flights_by_departure_date.sql", (date,))
+    def view_flights_by_date(self, departure_date):
+        print("View Flights by Departure Date")
+        self.db.run_sql(f"{self.sql_flights_dir}/view_flights_by_departure_date.sql", (departure_date,))
 
     def count_passengers_on_flight(self, flight_id):
         print("Count Passengers on Flight")
-        self.db.run_sql(f"{self.sql_flights_dir}/count_passengers_on_flight.sql", (flight_id,))
+        self.db.run_sql(f"{self.sql_bookings_dir}/count_passengers_on_flight.sql", (flight_id,))
 
     def count_pilots_assigned_to_flight(self, flight_id):
         print("Count Pilots Assigned to Flight")
@@ -58,9 +58,11 @@ class Client:
         print("View Bookings for Flight")
         self.db.run_sql(f"{self.sql_bookings_dir}/view_bookings_for_flight.sql")
 
-    def view_bookings_by_date(self):
+    def view_bookings_by_date(self, start_date, end_date=None):
         print("View Bookings by Date")
-        self.db.run_sql(f"{self.sql_bookings_dir}/view_bookings_by_date.sql") 
+        if end_date is None:
+            end_date = start_date # Query for a single day if no end_date
+        self.db.run_sql(f"{self.sql_bookings_dir}/view_bookings_by_date.sql", (start_date, end_date))
 
     def update_flight(self):
         print("Update Flight Information")

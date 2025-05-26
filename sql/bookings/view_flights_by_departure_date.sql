@@ -1,1 +1,0 @@
-SELECT * FROM Booking WHERE Date = :date;

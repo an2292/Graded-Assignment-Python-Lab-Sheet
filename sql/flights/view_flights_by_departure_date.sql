@@ -1,0 +1,1 @@
+SELECT * FROM Flight WHERE DepartureDate = :departure_date; 
