@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM Flight WHERE DestinationAirportId = :destination_id;

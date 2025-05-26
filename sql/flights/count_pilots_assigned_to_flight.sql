@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM Pilot_Assignment WHERE FlightId = :flight_id;
