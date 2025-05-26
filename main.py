@@ -60,13 +60,75 @@ class Database:
 
 
 class Client:
-    def __init__(self):
-        self.name = ""
+    def __init__(self, database):
+        self.db = database
+        self.db.create_databases()
+
+    # Add a New Flight
+    def add_flight(self):
+        print("Add a New Flight")
+
+    # View Flights by Criteria
+    def view_flights(self):
+        print("View Flights by Criteria")
+
+    # Update Flight Information
+    def update_flight(self):
+        print("Update Flight Information")
+
+    # Assign Pilot to Flight
+    def assign_pilot(self):
+        print("Assign Pilot to Flight")
+
+    # View Pilot Schedule
+    def view_pilot_schedule(self):
+        print("View Pilot Schedule")
+
+    # View/Update Destination Information
+    def view_update_destination(self):
+        print("View/Update Destination Information")
 
 
 def cli():
-    flight_db = Database("flight")
-    flight_db.create_databases()
+    db = Database("flight")
+    client = Client(db)
+
+    while True:
+        print("1. Add a New Flight")
+        print("2. View Flights by Criteria")
+        print("3. Update Flight Information")
+        print("4. Assign Pilot to Flight")
+        print("5. View Pilot Schedule")
+        print("6. View/Update Destination Information")
+        print("7. Exit")
+
+        choice = input("Enter your choice: ")
+
+        match choice:
+            case "1":
+                client.add_flight()
+                break;
+            case "2":
+                client.view_flights()
+                break;
+            case "3":
+                client.update_flight()
+                break;
+            case "4":
+                client.assign_pilot()
+                break;
+            case "5":
+                client.view_pilot_schedule()
+                break;
+            case "6":
+                client.view_update_destination()
+                break;
+            case "7":
+                print("Exiting...")
+                exit()
+                break;
+            case _:
+                print("Invalid choice. Please try again.")
 
 
 if __name__ == "__main__":
