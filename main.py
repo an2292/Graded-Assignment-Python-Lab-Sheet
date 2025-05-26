@@ -60,6 +60,8 @@ class Database:
 
 
 class Client:
+    """Client class for interacting with the Flight Management System Database."""
+
     def __init__(self, database):
         self.db = database
         self.db.create_databases()
@@ -89,8 +91,10 @@ class Client:
         print("View/Update Destination Information")
 
 
-def cli():
-    db = Database("flight")
+def cli(db_name="flight"):
+    """Command Line Interface for the Flight Management System."""
+
+    db = Database(db_name)
     client = Client(db)
 
     while True:
@@ -107,26 +111,19 @@ def cli():
         match choice:
             case "1":
                 client.add_flight()
-                break;
             case "2":
                 client.view_flights()
-                break;
             case "3":
                 client.update_flight()
-                break;
             case "4":
                 client.assign_pilot()
-                break;
             case "5":
                 client.view_pilot_schedule()
-                break;
             case "6":
                 client.view_update_destination()
-                break;
             case "7":
                 print("Exiting...")
                 exit()
-                break;
             case _:
                 print("Invalid choice. Please try again.")
 
