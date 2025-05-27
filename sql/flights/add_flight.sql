@@ -1,0 +1,2 @@
+INSERT INTO Flight (DepartureAirportId, DestinationAirportId, Duration, Price, Status, DepartureDateTime)
+VALUES (:departure_airport_id, :destination_airport_id, :duration, :price, :status, :departure_datetime);

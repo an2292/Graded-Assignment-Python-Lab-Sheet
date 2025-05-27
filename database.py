@@ -57,17 +57,31 @@ class Database:
                     print("No data found for your query.")
                     print("---------------------\n")
             else:
-                cursor.executescript(sql_script)
-                conn.commit()
+                """
+                Check if this is a multi-statement script (like create_table.sql or populate_table.sql)
+                or a single statement with parameters.
+                Got the idea from here: https://stackoverflow.com/a/5840840
+                """
+                statement_count = len([stmt.strip() for stmt in sql_script.split(';') if stmt.strip()])
+                
+                if statement_count > 1 or params is None:
+                    # Multi-statement script or no parameters - use executescript
+                    cursor.executescript(sql_script)
+                    conn.commit()
+                    print("Script executed successfully.")
+                else:
+                    # Single statement with parameters - use execute
+                    current_params = params if params is not None else ()
+                    cursor.execute(sql_script, current_params)
+                    conn.commit()
+                    print(f"Operation completed successfully. {cursor.rowcount} row(s) affected.")
 
     def create_databases(self, create_table_script, populate_table_script):
         """Create databases for the application and seed them with test data."""
 
         try:
-            # Create tables
             self.run_sql(create_table_script)
             print("Tables created.")
-
             self.run_sql(populate_table_script)
             print("Tables populated with test data.")
 

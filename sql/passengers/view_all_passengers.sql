@@ -7,6 +7,5 @@ SELECT
     COUNT(DISTINCT B.FlightId) AS UniqueFlights
 FROM Passenger P
 LEFT JOIN Booking B ON P.Id = B.PassengerId
-WHERE P.Nationality = :nationality
 GROUP BY P.Id, P.Name, P.Nationality, P.DateOfBirth
-ORDER BY P.Name;
+ORDER BY P.Name; 

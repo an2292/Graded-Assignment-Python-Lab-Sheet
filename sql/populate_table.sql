@@ -12,17 +12,18 @@ INSERT INTO Airport (Id, Name, Country) VALUES
   (10, 'Copenhagen', 'Denmark');
 
 -- Flight
-INSERT INTO Flight (Id, DepartureAirportId, DestinationAirportId, Duration, Price) VALUES 
-  (1, 5, 6, 321, 55.53),
-  (2, 9, 10, 103, 75.13),
-  (3, 8, 1, 284, 128.59),
-  (4, 10, 4, 232, 345.13),
-  (5, 6, 8, 75, 243.09),
-  (6, 1, 6, 417, 467.58),
-  (7, 9, 8, 473, 323.17),
-  (8, 5, 10, 262, 373.91),
-  (9, 10, 2, 395, 234.02),
-  (10, 4, 2, 225, 150.13);
+INSERT INTO Flight (Id, DepartureAirportId, DestinationAirportId, 
+  Duration, Price, Status, DepartureDateTime) VALUES 
+  (1, 5, 6, 321, 55.53, 'Scheduled', '2025-06-01 10:30:00'),
+  (2, 9, 10, 103, 75.13, 'Scheduled', '2025-06-01 23:15:00'),
+  (3, 8, 1, 284, 128.59, 'Delayed', '2025-06-05 06:00:00'),
+  (4, 10, 4, 232, 345.13, 'Cancelled', '2025-06-05 07:50:00'),
+  (5, 6, 8, 75, 243.09, 'Scheduled', '2025-06-06 13:15:00'),
+  (6, 1, 6, 417, 467.58, 'Scheduled', '2025-06-07 18:30:00'),
+  (7, 9, 8, 473, 323.17, 'Delayed', '2025-06-08 11:45:00'),
+  (8, 5, 10, 262, 373.91, 'Delayed', '2025-06-09 09:20:00'),
+  (9, 10, 2, 395, 234.02, 'Scheduled', '2025-06-10 14:45:00'),
+  (10, 4, 2, 225, 150.13, 'Cancelled', '2025-06-10 18:00:00');
 
 -- Pilot
 INSERT INTO Pilot (Id, Name, Role) VALUES 

@@ -1,2 +1,2 @@
-**.db
-_pycache__/** */
+*.db
+__pycache__/

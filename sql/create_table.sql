@@ -23,6 +23,8 @@ CREATE TABLE Flight (
     DestinationAirportId INTEGER NOT NULL,
     Duration INTEGER NOT NULL, -- in minutes
     Price REAL NOT NULL,
+    Status TEXT NOT NULL DEFAULT 'Scheduled',
+    DepartureDateTime TEXT,
     FOREIGN KEY (DepartureAirportId) REFERENCES Airport(Id),
     FOREIGN KEY (DestinationAirportId) REFERENCES Airport(Id)
 );

@@ -9,4 +9,4 @@ SELECT
 FROM Flight F
 JOIN Airport DA ON F.DepartureAirportId = DA.Id
 JOIN Airport AA ON F.DestinationAirportId = AA.Id
-WHERE date(F.DepartureDateTime) = :departure_date;
+WHERE F.Status = :status;
