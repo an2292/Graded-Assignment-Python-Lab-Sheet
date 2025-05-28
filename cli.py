@@ -9,7 +9,9 @@ def cli(db_name="flight"):
     client = Client(db)
 
     def _print_menu_opts(opts):
-        """Print menu options with numbers."""
+        """
+        Print menu options with numbers for user selection.
+        """
         for i, opt in enumerate(opts, start=1):
             print(f"{i}. {opt}")
 
@@ -125,8 +127,7 @@ def cli(db_name="flight"):
                 case "2":
                     pilot_id = _get_input("Enter pilot ID: ", int)
                     flight_id = _get_input("Enter flight ID: ", int)
-                    role = _get_input("Enter pilot role (Captain/First Officer/etc.): ")
-                    client.assign_pilot(pilot_id, flight_id, role)
+                    client.assign_pilot(pilot_id, flight_id)
                 case "3":
                     pilot_id = _get_input("Enter pilot ID: ", int)
                     client.view_pilot_schedule(pilot_id)

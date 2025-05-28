@@ -113,4 +113,5 @@ INSERT INTO Crew_Assignment (CrewId, FlightId) VALUES
   (4, 7),
   (6, 7),
   (6, 9),
-  (1, 9);
+  (1, 9),
+  (6, 9);

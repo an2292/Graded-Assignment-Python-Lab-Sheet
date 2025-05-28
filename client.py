@@ -78,9 +78,9 @@ class Client:
     # PILOT MANAGEMENT METHODS
     # ========================================
 
-    def assign_pilot(self, pilot_id, flight_id, role):
+    def assign_pilot(self, pilot_id, flight_id):
         print("Assign Pilot to Flight")
-        self.db.run_sql(f"{self.sql_pilots_dir}/assign_pilot.sql", (pilot_id, flight_id, role))
+        self.db.run_sql(f"{self.sql_pilots_dir}/assign_pilot.sql", (pilot_id, flight_id))
 
     def view_all_pilots(self):
         print("View All Pilots")
