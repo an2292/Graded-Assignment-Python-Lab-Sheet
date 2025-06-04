@@ -8,6 +8,7 @@ class Client:
         self.sql_dir = "./sql"
         self.sql_flights_dir = f"{self.sql_dir}/flights"
         self.sql_pilots_dir = f"{self.sql_dir}/pilots"
+        self.sql_crew_dir = f"{self.sql_dir}/crew"
         self.sql_destinations_dir = f"{self.sql_dir}/destinations"
         self.sql_bookings_dir = f"{self.sql_dir}/bookings"
         self.sql_passengers_dir = f"{self.sql_dir}/passengers"
@@ -97,6 +98,30 @@ class Client:
     def summary_flights_per_pilot(self):
         print("Summary of Flights per Pilot")
         self.db.run_sql(f"{self.sql_pilots_dir}/summary_flights_per_pilot.sql")
+
+    # ========================================
+    # CREW MANAGEMENT METHODS
+    # ========================================
+
+    def assign_crew(self, crew_id, flight_id):
+        print("Assign Crew to Flight")
+        self.db.run_sql(f"{self.sql_crew_dir}/assign_crew.sql", (crew_id, flight_id))
+
+    def view_all_crew(self):
+        print("View All Crew")
+        self.db.run_sql(f"{self.sql_crew_dir}/view_all_crew.sql")
+
+    def view_crew_schedule(self, crew_id):
+        print("View Crew Schedule")
+        self.db.run_sql(f"{self.sql_crew_dir}/view_crew_schedule.sql", (crew_id,))
+
+    def view_crew_by_role(self, role):
+        print("View Crew by Role")
+        self.db.run_sql(f"{self.sql_crew_dir}/view_crew_by_role.sql", (role,))
+
+    def summary_flights_per_crew(self):
+        print("Summary of Flights per Crew")
+        self.db.run_sql(f"{self.sql_crew_dir}/summary_flights_per_crew.sql")
 
     # ========================================
     # DESTINATION MANAGEMENT METHODS

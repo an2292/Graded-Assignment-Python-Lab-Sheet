@@ -141,6 +141,41 @@ def cli(db_name="flight"):
                 case _:
                     print("Invalid choice. Please try again.")
 
+    def crew_management_menu():
+        """Crew Management submenu."""
+        while True:
+            print("\n=== CREW MANAGEMENT ===")
+            crew_opts = [
+                "View All Crew",
+                "Assign Crew to Flight",
+                "View Crew Schedule",
+                "View Crew by Role",
+                "Summary: Flights per Crew",
+                "Back to Main Menu"
+            ]
+            _print_menu_opts(crew_opts)
+            
+            choice = input("Enter your choice: ")
+            match choice:
+                case "1":
+                    client.view_all_crew()
+                case "2":
+                    crew_id = _get_input("Enter crew ID: ", int)
+                    flight_id = _get_input("Enter flight ID: ", int)
+                    client.assign_crew(crew_id, flight_id)
+                case "3":
+                    crew_id = _get_input("Enter crew ID: ", int)
+                    client.view_crew_schedule(crew_id)
+                case "4":
+                    role = _get_input("Enter role to filter by: ")
+                    client.view_crew_by_role(role)
+                case "5":
+                    client.summary_flights_per_crew()
+                case "6":
+                    break
+                case _:
+                    print("Invalid choice. Please try again.")
+
     def destination_management_menu():
         """Destination Management submenu."""
         while True:
@@ -279,6 +314,7 @@ def cli(db_name="flight"):
         menu_opts = [
             "Flight Management",
             "Pilot Management", 
+            "Crew Management",
             "Destination Management",
             "Booking Management",
             "Passenger Management",
@@ -294,12 +330,14 @@ def cli(db_name="flight"):
             case "2":
                 pilot_management_menu()
             case "3":
-                destination_management_menu()
+                crew_management_menu()
             case "4":
-                booking_management_menu()
+                destination_management_menu()
             case "5":
-                passenger_management_menu()
+                booking_management_menu()
             case "6":
+                passenger_management_menu()
+            case "7":
                 print("Exiting...")
                 break
             case _:
